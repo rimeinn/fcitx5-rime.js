@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install -y \
+          sudo apt install -y --no-install-recommends \
             librime-bin \
             ninja-build \
             gettext
@@ -55,7 +55,8 @@ jobs:
           cd demo
           pnpm i
           pnpm run build
-          mv dist rime-ice
+          mkdir rime-ice
+          mv dist rime-ice # Wrap a directory for artifact
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
