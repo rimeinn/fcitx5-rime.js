@@ -12,7 +12,7 @@
     "url": "https://github.com/eagleoflqj"
   },
   "scripts": {
-    "configure": "emcmake cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug",
+    "configure": "emcmake cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release",
     "build": "EMCC_FORCE_STDLIBS=libc++ FCITX_DISTRIBUTION=fcitx5-js cmake --build build",
     "preview": "serve -S",
     "prepack": "bash scripts/prepack.sh"
