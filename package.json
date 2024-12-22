@@ -1,8 +1,9 @@
 {
-  "name": "fcitx5-rime.js",
+  "name": "fcitx5-rime",
   "version": "0.1.0",
   "description": "Fcitx5 Rime as a JavaScript library",
   "type": "module",
+  "main": "dist/Fcitx5.js",
   "files": [
     "dist"
   ],

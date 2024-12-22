@@ -56,4 +56,4 @@ jobs:
           prerelease: true
           title: "Nightly Build"
           files: |
-            fcitx5-rime.js-*.tgz
+            fcitx5-rime-*.tgz
