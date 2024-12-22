@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    env:
+      EMSCRIPTEN_VERSION: '3.1.74'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        run: |
+          sudo apt install -y \
+            ninja-build \
+            gettext
+          npm i -g pnpm
+          pnpm i
+          ./scripts/install-deps.sh
+
+      - name: Install emsdk
+        run: |
+          git clone https://github.com/emscripten-core/emsdk
+          cd emsdk
+          ./emsdk install ${{ env.EMSCRIPTEN_VERSION }}
+          ./emsdk activate ${{ env.EMSCRIPTEN_VERSION }}
+
+      - name: Build
+        run: |
+          . emsdk/emsdk_env.sh
+          pnpm run configure
+          pnpm run build
+          npm pack
+
+      - name: Setup tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
+
+      - name: Release
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: latest
+          prerelease: true
+          title: "Nightly Build"
+          files: |
+            fcitx5-rime.js-*.tgz

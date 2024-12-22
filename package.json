@@ -1,0 +1,24 @@
+{
+  "name": "fcitx5-rime.js",
+  "version": "0.1.0",
+  "description": "Fcitx5 Rime as a JavaScript library",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "author": {
+    "name": "Qijia Liu",
+    "email": "liumeo@pku.edu.cn",
+    "url": "https://github.com/eagleoflqj"
+  },
+  "scripts": {
+    "configure": "emcmake cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug",
+    "build": "EMCC_FORCE_STDLIBS=libc++ FCITX_DISTRIBUTION=fcitx5-js cmake --build build",
+    "preview": "serve -S",
+    "prepack": "bash scripts/prepack.sh"
+  },
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
