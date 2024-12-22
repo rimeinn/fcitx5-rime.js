@@ -54,3 +54,5 @@ optimizeDeps: {
 },
 ```
 后，`pnpm run dev` 可以正常加载 wasm。配合 [vite-plugin-static-copy](https://github.com/sapphi-red/vite-plugin-static-copy) 可以使 `pnpm run build` 正常打包 wasm。
+
+引用方式同前，见 [App.vue](./demo/src/App.vue)

@@ -22,7 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install -y \
+          sudo apt install -y --no-install-recommends \
+            librime-bin \
             ninja-build \
             gettext
           npm i -g pnpm
@@ -42,6 +43,27 @@ jobs:
           pnpm run configure
           pnpm run build
           npm pack
+
+      - name: Build rime-ice
+        run: |
+          git clone --depth=1 https://github.com/iDvel/rime-ice
+          cd rime-ice && rime_deployer --build
+          zip -r ../demo/public/rime-ice.zip build lua opencc custom_phrase.txt
+
+      - name: Build demo
+        run: |
+          cd demo
+          pnpm i
+          pnpm run build
+          mkdir rime-ice
+          mv dist rime-ice # Wrap a directory for artifact
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rime-ice
+          path: |
+            demo/rime-ice
 
       - name: Setup tmate session
         if: ${{ failure() }}

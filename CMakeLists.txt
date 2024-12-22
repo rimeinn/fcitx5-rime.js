@@ -9,6 +9,5 @@ target_link_libraries(Fcitx5
     "--embed-file ${PROJECT_BINARY_DIR}/sysroot/usr/share/fcitx5/addon/rime.conf@/usr/share/fcitx5/addon/rime.conf"
     "--embed-file ${PROJECT_BINARY_DIR}/sysroot/usr/share/fcitx5/inputmethod/rime.conf@/usr/share/fcitx5/inputmethod/rime.conf"
     "--embed-file ${PROJECT_BINARY_DIR}/sysroot/usr/share/rime-data/opencc@/usr/share/rime-data/opencc"
-    "--embed-file ${PROJECT_SOURCE_DIR}/cache/placeholder.yaml@/usr/share/rime-data/default.yaml" # fcitx5-rime requires this file.
     "--extern-post-js ${PROJECT_SOURCE_DIR}/src/rime.js"
 )
