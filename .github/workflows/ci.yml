@@ -12,18 +12,6 @@ jobs:
     env:
       EMSCRIPTEN_VERSION: '3.1.74'
     steps:
-      - name: Build rime-ice
-        uses: rimeinn/deploy-schema@dev
-        with:
-          user-recipe-list: |-
-            iDvel/rime-ice:others/recipes/full
-          shared-recipe-list:
-          package-items: |-
-            build
-            lua
-            opencc
-            custom_phrase.txt
-
       - uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -55,10 +43,22 @@ jobs:
           pnpm run build
           npm pack
 
+      - name: Build rime-ice
+        uses: rimeinn/deploy-schema@master
+        with:
+          user-recipe-list: |-
+            iDvel/rime-ice:others/recipes/full
+          shared-recipe-list:
+          package-items: |-
+            build
+            lua
+            opencc
+            custom_phrase.txt
+
       - name: Build demo
         run: |
           cd demo
-          mv /tmp/deploy-schema/artifact.zip public
+          mv /tmp/deploy-schema/artifact.zip public/rime-ice.zip
           pnpm i
           pnpm run build
           mkdir rime-ice
