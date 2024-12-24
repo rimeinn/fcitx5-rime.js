@@ -23,7 +23,6 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install -y --no-install-recommends \
-            librime-bin \
             ninja-build \
             gettext
           npm i -g pnpm
@@ -45,14 +44,21 @@ jobs:
           npm pack
 
       - name: Build rime-ice
-        run: |
-          git clone --depth=1 https://github.com/iDvel/rime-ice
-          cd rime-ice && rime_deployer --build
-          zip -r ../demo/public/rime-ice.zip build lua opencc custom_phrase.txt
+        uses: rimeinn/deploy-schema@master
+        with:
+          user-recipe-list: |-
+            iDvel/rime-ice:others/recipes/full
+          shared-recipe-list:
+          package-items: |-
+            build
+            lua
+            opencc
+            custom_phrase.txt
 
       - name: Build demo
         run: |
           cd demo
+          mv /tmp/deploy-schema/artifact.zip public/rime-ice.zip
           pnpm i
           pnpm run build
           mkdir rime-ice
