@@ -17,7 +17,7 @@ jobs:
         with:
           user-recipe-list: |-
             iDvel/rime-ice:others/recipes/full
-          shared-recipe-list: ""
+          shared-recipe-list:
           package-items: |-
             build
             lua
