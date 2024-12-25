@@ -44,6 +44,7 @@ jobs:
           pnpm run configure
           pnpm run build
           npm pack
+          mv fcitx5-rime-*.tgz fcitx5-rime.tgz
 
       - name: Build rime-ice
         uses: rimeinn/deploy-schema@master
@@ -86,7 +87,7 @@ jobs:
           prerelease: true
           title: "Nightly Build"
           files: |
-            fcitx5-rime-*.tgz
+            fcitx5-rime.tgz
 
       - name: Create stable release
         if: ${{ github.ref_type == 'tag' }}
@@ -97,4 +98,4 @@ jobs:
           prerelease: false
           title: ${{ github.ref_name }}
           files: |
-            fcitx5-rime-*.tgz
+            fcitx5-rime.tgz
