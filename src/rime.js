@@ -8,7 +8,8 @@ export async function loadZip(url) {
       return res.arrayBuffer()
     })
   ])
-  window.fcitx.unzip(schema, '/usr/share/rime-data')
+  // librime-qjs expects js in user dir.
+  window.fcitx.unzip(schema, '/home/web_user/.local/share/fcitx5/rime')
   window.fcitx.enable()
   window.fcitx.setInputMethods(['rime'])
 }
