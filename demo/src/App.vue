@@ -10,7 +10,7 @@ loadZip('./rime-ice.zip')
 
 <style scoped>
 textarea {
-  width: 400px;
-  height: 200px;
+  width: 90vw;
+  height: 50vh;
 }
 </style>
