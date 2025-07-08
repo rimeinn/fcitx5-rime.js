@@ -1,5 +1,11 @@
 # fcitx5-rime.js
 为你的网站添加 Rime 和任意方案
+<table>
+<tr>
+<td><img src="./assets/desktop.png" alt="Desktop"></td>
+<td><img src="./assets/mobile.png" alt="Mobile"></td>
+</tr>
+</table>
 
 ## 使用
 本项目适用于方案发布者，不适用于普通用户。
