@@ -11,7 +11,19 @@ export async function loadZip(fileOrUrl) {
           reader.readAsArrayBuffer(fileOrUrl)
         })
       } else if (typeof fileOrUrl === 'string') {
-        const response = await fetch(fileOrUrl)
+        const parsed = new URL(fileOrUrl, window.location.href)
+        const hostname = parsed.hostname.toLowerCase()
+        const isPrivateHost = hostname === 'localhost' ||
+          hostname === '169.254.169.254' ||
+          /^127\./.test(hostname) ||
+          /^10\./.test(hostname) ||
+          /^192\.168\./.test(hostname) ||
+          /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname) ||
+          hostname === '::1'
+        if (!['http:', 'https:'].includes(parsed.protocol) || isPrivateHost) {
+          throw new Error(`Invalid or disallowed URL: ${fileOrUrl}`)
+        }
+        const response = await fetch(parsed.href)
         if (!response.ok) {
           throw new Error(`Get ${fileOrUrl} error`)
         }
