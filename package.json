@@ -1,6 +1,6 @@
 {
   "name": "fcitx5-rime",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Fcitx5 Rime as a JavaScript library",
   "type": "module",
   "main": "dist/Fcitx5.js",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "configure": "emcmake cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release",
-    "build": "EMCC_FORCE_STDLIBS=libc++ FCITX_DISTRIBUTION=fcitx5-js cmake --build build",
+    "build": "EMCC_FORCE_STDLIBS=libc++ cmake --build build",
     "preview": "serve -S",
     "prepack": "bash scripts/prepack.sh"
   },

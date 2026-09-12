@@ -12,18 +12,13 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
 
-      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
         with:
-          repository: emscripten-core/emsdk
-          path: emsdk
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 24.x
+          node-version: 26.x
 
       - name: Install dependencies
         run: |
@@ -37,15 +32,13 @@ jobs:
         run: |
           echo "EMSCRIPTEN_VERSION=$(cat fcitx5-js/.emscripten-version)" >> $GITHUB_ENV
 
-      - name: Install emsdk
-        working-directory: emsdk
-        run: |
-          ./emsdk install ${{ env.EMSCRIPTEN_VERSION }}
-          ./emsdk activate ${{ env.EMSCRIPTEN_VERSION }}
+      - name: Setup emsdk
+        uses: emscripten-core/setup-emsdk@v16
+        with:
+          version: ${{ env.EMSCRIPTEN_VERSION }}
 
       - name: Build
         run: |
-          . emsdk/emsdk_env.sh
           pnpm run configure
           pnpm run build
           npm pack
@@ -73,7 +66,7 @@ jobs:
           mv dist rime-ice # Wrap a directory for artifact
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: rime-ice
           path: |
