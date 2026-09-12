@@ -3,6 +3,7 @@ set -e
 pnpm i --prefix=fcitx5-js
 pnpm i --prefix=fcitx5-js/fcitx5-webview
 pnpm i --prefix=fcitx5-js/fcitx5-keyboard-web
+pnpm --prefix=fcitx5-js/fcitx5-webview run build
 pnpm --prefix=fcitx5-js/fcitx5-keyboard-web run build
 
 mkdir -p cache
